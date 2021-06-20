@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: boot-admin
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848   # nacos服务器地址
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+server:
+  port: 9000
+
+logging:
+  file:
+    name: target/${spring.application.name}.log

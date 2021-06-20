@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: cloud-mq  #服务名
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848   # nacos服务器地址
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8858
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    virtual-host: /
+    username: admin
+    password: admin
+    listener:
+      simple:
+        concurrency: 5
+        prefetch: 10
+        retry:
+          enabled: true   # 允许消息消费失败的重试
+          max-attempts: 3   # 消息最多消费次数3次
+          initial-interval: 2000    # 消息多次消费的间隔2秒
+
+dubbo:
+  cloud:
+    subscribed-services: cloud-user
+  consumer:
+    check: false
+    loadbalance: "leastactive"    #最小活跃数负载均衡
+
+  registry:
+    # 挂载到 Spring Cloud 注册中心
+    address: spring-cloud://localhost
+
+server:
+  port: 0
+
+# 用于actuator暴露监控指标
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+logging:
+  file:
+    name: target/${spring.application.name}.log

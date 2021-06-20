@@ -1,0 +1,20 @@
+server:
+  port: 9898
+spring:
+  application:
+    name: cloud-stream
+  cloud:
+    stream:
+      bindings:
+        myOutput:
+          destination: login-user
+          content-type: application/json
+
+        myInput: # 通道名，对应代码中的消费监听组
+          destination: login-user # exchange
+          group: logined-member   # 消费者组, 同组负载消费
+
+      rocketmq:
+        binder:
+          name-server: 127.0.0.1:9876
+

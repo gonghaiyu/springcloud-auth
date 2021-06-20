@@ -1,0 +1,50 @@
+server:
+  port: 9898
+spring:
+  application:
+    name: cloud-stream
+  rabbitmq:
+    host: localhost
+    port: 5672
+    virtual-host: /
+    username: admin
+    password: admin
+  cloud:
+    stream:
+      bindings:
+        myOutput:
+          destination: login-user
+        output-step-2:
+          destination: login-user-step-2
+
+        myInput-1: # 通道名，对应代码中的消费监听组
+          destination: login-user # exchange
+          group: logined-member   # 消费者组, 同组负载消费，不同组共同消费；destination.group 组合为queue名
+        myInput-2:
+          destination: login-user
+          group: user
+
+        input-step-1:
+          destination: login-user
+          group: logined-member-step
+        input-step-2:
+          destination: login-user-step-2
+          group: logined-member-step
+
+      rabbit:
+        bindings:
+          myOutput:
+            producer:
+              routing-key-expression: headers.routingKey   # 发送端路由key
+              delayed-exchange: true    # 开启延时队列
+
+          myInput-1:
+            consumer:
+              binding-routing-key: login.user.succeed   # 消费监听路由表达式
+              delayed-exchange: true    # 开启延时队列
+
+          myInput-2:
+            consumer:
+              auto-bind-dlq: true   # 绑定死信队列
+              republish-to-dlq: true  # 重投到死信队列并带有报错信息
+              binding-routing-key: login.user.failed   # 消费监听路由表达式
