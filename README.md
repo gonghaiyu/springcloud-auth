@@ -284,10 +284,8 @@ spring:
 由此就实现了对后端路由地址的身份验证功能
 
 ## 三、完整代码
-[https://gitee.com/hypier/barry-cloud][5]
+[https://github.com/gonghaiyu/springcloud-auth.git][5]
 
-## 请关注我的公众号
- ![请关注我的公众号][6]
 
 
   [6]: https://oscimg.oschina.net/oscnet/up-8969dabd3beeba071b59e61139a2bb8b22f.JPEG
@@ -295,4 +293,4 @@ spring:
   [2]: https://oscimg.oschina.net/oscnet/up-dc160e6b46d0c54aa28bc1d333805573d23.png
   [3]: https://oscimg.oschina.net/oscnet/up-21e9681ca8e2331079f82494d0500890c3f.png
   [4]: https://oscimg.oschina.net/oscnet/up-a176fb7329bceee44c405091cbe062e0b6e.png
-  [5]: https://gitee.com/hypier/barry-cloud
+  [5]: https://github.com/gonghaiyu/springcloud-auth.git
